@@ -17,6 +17,43 @@ const Login = ({ navigation }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleLogin = () => {
+    setEmailError("");
+    setPasswordError("");
+
+    if (email.trim() === "") {
+      setEmailError("Email is required!");
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setEmailError("Invalid email!");
+      return;
+    }
+
+    if (password.trim() === "") {
+      setPasswordError("Password is required!");
+      return;
+    }
+
+    if (email === "test@example.com" && password === "password") {
+      console.log("Login successful");
+      alert("Login successful!");
+    } else {
+      alert("Invalid credentials. Please try again.");
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={{ flex: 1, marginHorizontal: 22 }}>
@@ -43,16 +80,9 @@ const Login = ({ navigation }) => {
         </View>
 
         <View style={{ marginBottom: 12 }}>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: 400,
-              marginVertical: 8,
-            }}
-          >
+          <Text style={{ fontSize: 16, fontWeight: 400, marginVertical: 8 }}>
             Email address
           </Text>
-
           <View
             style={{
               width: "100%",
@@ -69,24 +99,18 @@ const Login = ({ navigation }) => {
               placeholder="Enter your email address"
               placeholderTextColor={COLORS.black}
               keyboardType="email-address"
-              style={{
-                width: "100%",
-              }}
+              style={{ width: "100%" }}
+              value={email}
+              onChangeText={setEmail}
             />
           </View>
+          <Text style={{ color: "red" }}>{emailError}</Text>
         </View>
 
         <View style={{ marginBottom: 12 }}>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: 400,
-              marginVertical: 8,
-            }}
-          >
+          <Text style={{ fontSize: 16, fontWeight: 400, marginVertical: 8 }}>
             Password
           </Text>
-
           <View
             style={{
               width: "100%",
@@ -102,12 +126,11 @@ const Login = ({ navigation }) => {
             <TextInput
               placeholder="Enter your password"
               placeholderTextColor={COLORS.black}
-              secureTextEntry={isPasswordShown}
-              style={{
-                width: "100%",
-              }}
+              secureTextEntry={!isPasswordShown}
+              style={{ width: "100%" }}
+              value={password}
+              onChangeText={setPassword}
             />
-
             <TouchableOpacity
               onPress={() => setIsPasswordShown(!isPasswordShown)}
               style={{
@@ -115,13 +138,14 @@ const Login = ({ navigation }) => {
                 right: 12,
               }}
             >
-              {isPasswordShown == true ? (
+              {isPasswordShown ? (
                 <Ionicons name="eye-off" size={24} color={COLORS.black} />
               ) : (
                 <Ionicons name="eye" size={24} color={COLORS.black} />
               )}
             </TouchableOpacity>
           </View>
+          <Text style={{ color: "red" }}>{passwordError}</Text>
         </View>
 
         <View
@@ -143,7 +167,7 @@ const Login = ({ navigation }) => {
             onPress={() => navigation.navigate("ForgotPassword")}
             style={{ position: "absolute", right: 1 }}
           >
-            <Text style={{ color: COLORS.primary}}>Forgot Password ?</Text>
+            <Text style={{ color: COLORS.primary }}>Forgot Password ?</Text>
           </Pressable>
         </View>
 
@@ -154,7 +178,7 @@ const Login = ({ navigation }) => {
             marginTop: 18,
             marginBottom: 4,
           }}
-          onPress={() => console.log("Pressed")}
+          onPress={handleLogin}
         />
 
         <View
