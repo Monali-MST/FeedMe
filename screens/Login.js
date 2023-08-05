@@ -41,7 +41,7 @@ const Login = ({ navigation }) => {
     }
 
     if (!isValidEmail(email)) {
-      setEmailError("Invalid email!");
+      setEmailError("Please enter a valid email address.");
       return;
     }
 
@@ -116,7 +116,9 @@ const Login = ({ navigation }) => {
               onChangeText={setEmail}
             />
           </View>
-          <Text style={{ color: "red" }}>{emailError}</Text>
+          {emailError ? (
+            <Text style={{ color: COLORS.red }}>{emailError}</Text>
+          ) : null}
         </View>
 
         <View style={{ marginBottom: 12 }}>
@@ -157,7 +159,10 @@ const Login = ({ navigation }) => {
               )}
             </TouchableOpacity>
           </View>
-          <Text style={{ color: "red" }}>{passwordError}</Text>
+
+          {passwordError ? (
+            <Text style={{ color: COLORS.red }}>{passwordError}</Text>
+          ) : null}
         </View>
 
         <View
@@ -179,7 +184,14 @@ const Login = ({ navigation }) => {
             onPress={() => navigation.navigate("ForgotPassword")}
             style={{ position: "absolute", right: 1 }}
           >
-            <Text style={{ color: COLORS.primary }}>Forgot Password ?</Text>
+            <Text
+              style={{
+                color: COLORS.primary,
+                fontWeight: "bold",
+              }}
+            >
+              Forgot Password ?
+            </Text>
           </Pressable>
         </View>
 

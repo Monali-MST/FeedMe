@@ -107,11 +107,11 @@ const Welcome = ({ navigation }) => {
                             fontSize: 16,
                             color: COLORS.white,
                             marginVertical: 4
-                        }}>Connect with each other with chatting</Text>
+                        }}>Connect with each other with dining</Text>
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.white,
-                        }}>Calling, Enjoy Safe and private texting</Text>
+                        }}>Explore Local Eateries, and Enjoy Ordering</Text>
                     </View>
 
                     <Button
