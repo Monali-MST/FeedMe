@@ -86,7 +86,6 @@ const Signup = ({ navigation }) => {
     // Call your API or perform necessary actions here
     if (true) {
       console.log("Account is created successfully!");
-      navigation.navigate("Login");
       setSuccessModalVisible(true);
       
     } else {
