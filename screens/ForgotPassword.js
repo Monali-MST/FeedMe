@@ -15,7 +15,7 @@ import Checkbox from "expo-checkbox";
 import Button from "../components/Button";
 
 const ForgotPassword = ({ navigation }) => {
-  const [email, setEmail] = useState("");;
+  const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 
   const [successModalVisible, setSuccessModalVisible] = useState(false);
@@ -155,30 +155,6 @@ const ForgotPassword = ({ navigation }) => {
           message="Invalid email !"
           onClose={handleErrorModalClose}
         />
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            marginVertical: 22,
-          }}
-        >
-          <Text style={{ fontSize: 16, color: COLORS.black }}>
-            Don't have an account ?{" "}
-          </Text>
-          <Pressable onPress={() => navigation.navigate("Signup")}>
-            <Text
-              style={{
-                fontSize: 16,
-                color: COLORS.primary,
-                fontWeight: "bold",
-                marginLeft: 6,
-              }}
-            >
-              Register
-            </Text>
-          </Pressable>
-        </View>
       </View>
     </SafeAreaView>
   );
