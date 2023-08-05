@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
+import CustomModal from "../components/CustomModal";
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,6 +22,9 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,10 +52,18 @@ const Login = ({ navigation }) => {
 
     if (email === "test@example.com" && password === "password") {
       console.log("Login successful");
-      alert("Login successful!");
+      setSuccessModalVisible(true);
     } else {
-      alert("Invalid credentials. Please try again.");
+      setErrorModalVisible(true);
     }
+  };
+
+  const handleSuccessModalClose = () => {
+    setSuccessModalVisible(false);
+  };
+
+  const handleErrorModalClose = () => {
+    setErrorModalVisible(false);
   };
 
   return (
@@ -179,6 +191,20 @@ const Login = ({ navigation }) => {
             marginBottom: 4,
           }}
           onPress={handleLogin}
+        />
+
+        {/* Success Modal */}
+        <CustomModal
+          visible={successModalVisible}
+          message="Login successful!"
+          onClose={handleSuccessModalClose}
+        />
+
+        {/* Error Modal */}
+        <CustomModal
+          visible={errorModalVisible}
+          message="Invalid credentials. Please try again."
+          onClose={handleErrorModalClose}
         />
 
         <View
