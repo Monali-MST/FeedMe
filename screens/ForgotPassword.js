@@ -152,7 +152,7 @@ const ForgotPassword = ({ navigation }) => {
         {/* Error Modal */}
         <CustomModal
           visible={errorModalVisible}
-          message="Invalid email !"
+          message="Something went wrong!"
           onClose={handleErrorModalClose}
         />
       </View>
