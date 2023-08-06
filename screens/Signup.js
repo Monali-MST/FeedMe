@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Alert, 
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -36,7 +36,8 @@ const Signup = ({ navigation }) => {
 
   const validatePassword = () => {
     // password strength requirements: at least 8 characters with one uppercase, one lowercase, and one digit
-    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\W_]{8,}$/;
+    const passwordPattern =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\W_]{8,}$/;
     return passwordPattern.test(password);
   };
 

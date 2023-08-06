@@ -15,13 +15,13 @@ const Button = (props) => {
   );
 
   const handlePressIn = () => {
-   setBgColor(props.filled ? outlinedColor : filledBgColor);
-   setTextColor( props.filled ? COLORS.secondary : COLORS.white);
+    setBgColor(props.filled ? outlinedColor : filledBgColor);
+    setTextColor(props.filled ? COLORS.secondary : COLORS.white);
   };
 
   const handlePressOut = () => {
-   setBgColor(props.filled ? filledBgColor : outlinedColor);
-   setTextColor( props.filled ? COLORS.white : COLORS.secondary);
+    setBgColor(props.filled ? filledBgColor : outlinedColor);
+    setTextColor(props.filled ? COLORS.white : COLORS.secondary);
   };
 
   return (
@@ -30,7 +30,7 @@ const Button = (props) => {
         ...styles.button,
         ...{ backgroundColor: bgColor },
         ...props.style,
-        ...{ borderColor: borderColor},
+        ...{ borderColor: borderColor },
       }}
       onPress={props.onPress}
       onPressIn={handlePressIn}
@@ -46,7 +46,7 @@ const Button = (props) => {
 const styles = StyleSheet.create({
   button: {
     paddingBottom: 16,
-    paddingVertical: 10,    
+    paddingVertical: 10,
     borderWidth: 2,
     borderRadius: 12,
     alignItems: "center",
