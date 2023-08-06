@@ -15,7 +15,7 @@ const Welcome = ({ navigation }) => {
       <View style={{ flex: 1 }}>
         <View>
           <Image
-            source={require("../assets/hero1.jpg")}
+            source={require("../assets/food1.jpg")}
             style={{
               height: 100,
               width: 100,
@@ -31,7 +31,7 @@ const Welcome = ({ navigation }) => {
           />
 
           <Image
-            source={require("../assets/hero3.jpg")}
+            source={require("../assets/food3.jpg")}
             style={{
               height: 100,
               width: 100,
@@ -48,7 +48,7 @@ const Welcome = ({ navigation }) => {
           />
 
           <Image
-            source={require("../assets/hero3.jpg")}
+            source={require("../assets/food3.jpg")}
             style={{
               width: 100,
               height: 100,
@@ -65,7 +65,7 @@ const Welcome = ({ navigation }) => {
           />
 
           <Image
-            source={require("../assets/hero2.jpg")}
+            source={require("../assets/food2.jpg")}
             style={{
               height: 200,
               width: 200,

@@ -5,7 +5,7 @@ import COLORS from "../constants/colors";
 const Button = (props) => {
   const filledBgColor = props.color || COLORS.primary;
   const outlinedColor = COLORS.white;
-  const borderColor = props.filled ? COLORS.secondary : COLORS.white;
+  const borderColor = props.filled ? COLORS.primary : COLORS.white;
 
   const [bgColor, setBgColor] = useState(
     props.filled ? filledBgColor : outlinedColor

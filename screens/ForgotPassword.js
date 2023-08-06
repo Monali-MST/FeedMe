@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import CustomModal from "../components/CustomModal";
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
@@ -17,9 +16,6 @@ import Button from "../components/Button";
 const ForgotPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
-
-  const [successModalVisible, setSuccessModalVisible] = useState(false);
-  const [errorModalVisible, setErrorModalVisible] = useState(false);
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -41,18 +37,8 @@ const ForgotPassword = ({ navigation }) => {
 
     if (true) {
       console.log("OTP is sent");
-      setSuccessModalVisible(true);
     } else {
-      setErrorModalVisible(true);
     }
-  };
-
-  const handleSuccessModalClose = () => {
-    setSuccessModalVisible(false);
-  };
-
-  const handleErrorModalClose = () => {
-    setErrorModalVisible(false);
   };
 
   return (
@@ -140,20 +126,6 @@ const ForgotPassword = ({ navigation }) => {
             marginBottom: 4,
           }}
           onPress={handleLogin}
-        />
-
-        {/* Success Modal */}
-        <CustomModal
-          visible={successModalVisible}
-          message="OTP is sent to your email!"
-          onClose={handleSuccessModalClose}
-        />
-
-        {/* Error Modal */}
-        <CustomModal
-          visible={errorModalVisible}
-          message="Something went wrong!"
-          onClose={handleErrorModalClose}
         />
       </View>
     </SafeAreaView>

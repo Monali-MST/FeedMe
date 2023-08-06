@@ -6,14 +6,16 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Alert, 
 } from "react-native";
 import React, { useState } from "react";
-import CustomModal from "../components/CustomModal";
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import Button from "../components/Button";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
 
 const Signup = ({ navigation }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(true);
@@ -26,9 +28,6 @@ const Signup = ({ navigation }) => {
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
-  const [successModalVisible, setSuccessModalVisible] = useState(false);
-  const [errorModalVisible, setErrorModalVisible] = useState(false);
 
   const validateEmail = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -82,25 +81,29 @@ const Signup = ({ navigation }) => {
       return;
     }
 
-    // Proceed with the signup process
-    // Call your API or perform necessary actions here
-    if (true) {
-      console.log("Account is created successfully!");
-      setSuccessModalVisible(true);
-      
-    } else {
-      setErrorModalVisible(true);
-    }
+    // Create an instance of the mock adapter
+    const mock = new MockAdapter(axios);
 
-    //navigation.navigate("Login");
-  };
+    // Mock the signup API call with success response
+    mock.onPost("/api/signup").reply(200, {
+      message: "Signup successful!",
+    });
 
-  const handleSuccessModalClose = () => {
-    setSuccessModalVisible(false);
-  };
-
-  const handleErrorModalClose = () => {
-    setErrorModalVisible(false);
+    // Call the signup API
+    axios
+      .post("/api/signup", { email, phone, password })
+      .then((response) => {
+        // Handle success response (e.g., show success message or navigate to the next screen)
+        console.log(response.data.message);
+        Alert.alert("Account Created", "Account is created successfully!");
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        // Handle error response (e.g., show error message)
+        console.log(error.message);
+        setErrorModalVisible(true)
+        Alert.alert("Signup Failed", "An error occurred while signing up.");
+      });
   };
 
   return (
@@ -295,20 +298,6 @@ const Signup = ({ navigation }) => {
               marginBottom: 4,
             }}
             onPress={handleSignUp}
-          />
-
-          {/* Success Modal */}
-          <CustomModal
-            visible={successModalVisible}
-            message="Account is created successfully!"
-            onClose={handleSuccessModalClose}
-          />
-
-          {/* Error Modal */}
-          <CustomModal
-            visible={errorModalVisible}
-            message="User is already created!"
-            onClose={handleErrorModalClose}
           />
 
           <View
