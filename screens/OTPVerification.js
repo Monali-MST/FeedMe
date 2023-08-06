@@ -18,7 +18,7 @@ const OTPVerification = ({ navigation }) => {
   const inputRefs = useRef([]);
 
   const handleOtpChange = (index, text) => {
-    // Limit the OTP input to a specific length (e.g., 5 digits)
+    // Limit the OTP input to a specific length (5 digits)
     if (/^\d{0,5}$/.test(text)) {
       setOtp((prevOtp) => {
         const newOtp = prevOtp.split("");
@@ -44,6 +44,7 @@ const OTPVerification = ({ navigation }) => {
     }
 
     console.log("OTP:", otp);
+    
     // Create an instance of the mock adapter
     const mock = new MockAdapter(axios);
 
