@@ -5,6 +5,7 @@ import {
   Pressable,
   TextInput,
   TouchableOpacity,
+  Alert
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +13,8 @@ import COLORS from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import Button from "../components/Button";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
 
 const ForgotPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -35,10 +38,28 @@ const ForgotPassword = ({ navigation }) => {
       return;
     }
 
-    if (true) {
-      console.log("OTP is sent");
-    } else {
-    }
+    // Create an instance of the mock adapter
+    const mock = new MockAdapter(axios);
+
+    // Mock the signup API call with success response
+    mock.onPost("/api/forgotpassword").reply(200, {
+      message: "OTP is sent",
+    });
+
+    // Call the signup API
+    axios
+      .post("/api/forgotpassword", { email })
+      .then((response) => {
+        // Handle success response
+        console.log(response.data.message);
+        Alert.alert("OTP send", "The one-time password (OTP) has been sent successfully.!");
+        navigation.navigate("OTPVerification");
+      })
+      .catch((error) => {
+        // Handle error response
+        console.log(error.message);
+        Alert.alert("OTP Failed", "An error occurred while sending the OTP.");
+      });
   };
 
   return (
@@ -94,28 +115,6 @@ const ForgotPassword = ({ navigation }) => {
           {emailError ? (
             <Text style={{ color: COLORS.red }}>{emailError}</Text>
           ) : null}
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            marginVertical: 6,
-            width: "100%",
-          }}
-        >
-          <Pressable
-            onPress={() => navigation.navigate("ForgotPassword")}
-            style={{ position: "absolute", right: 1 }}
-          >
-            <Text
-              style={{
-                color: COLORS.primary,
-                fontWeight: "bold",
-              }}
-            >
-              Resend ?
-            </Text>
-          </Pressable>
         </View>
 
         <Button

@@ -36,7 +36,7 @@ const Signup = ({ navigation }) => {
 
   const validatePassword = () => {
     // password strength requirements: at least 8 characters with one uppercase, one lowercase, and one digit
-    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\W_]{8,}$/;
     return passwordPattern.test(password);
   };
 
@@ -86,22 +86,21 @@ const Signup = ({ navigation }) => {
 
     // Mock the signup API call with success response
     mock.onPost("/api/signup").reply(200, {
-      message: "Signup successful!",
+      message: "Signup is successful!",
     });
 
     // Call the signup API
     axios
       .post("/api/signup", { email, phone, password })
       .then((response) => {
-        // Handle success response (e.g., show success message or navigate to the next screen)
+        // Handle success response
         console.log(response.data.message);
         Alert.alert("Account Created", "Account is created successfully!");
         navigation.navigate("Login");
       })
       .catch((error) => {
-        // Handle error response (e.g., show error message)
+        // Handle error response
         console.log(error.message);
-        setErrorModalVisible(true)
         Alert.alert("Signup Failed", "An error occurred while signing up.");
       });
   };

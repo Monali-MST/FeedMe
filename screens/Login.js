@@ -5,6 +5,7 @@ import {
   Pressable,
   TextInput,
   TouchableOpacity,
+  Alert
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +13,8 @@ import COLORS from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import Button from "../components/Button";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
 
 const Login = ({ navigation }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
@@ -46,12 +49,27 @@ const Login = ({ navigation }) => {
       return;
     }
 
-    if (email === "test@example.com" && password === "password") {
-      console.log("Login successful");
-      setSuccessModalVisible(true);
-    } else {
-      setErrorModalVisible(true);
-    }
+    // Create an instance of the mock adapter
+    const mock = new MockAdapter(axios);
+
+    // Mock the signup API call with success response
+    mock.onPost("/api/login").reply(200, {
+      message: "Login is successful!",
+    });
+
+    // Call the signup API
+    axios
+      .post("/api/login", { email, password })
+      .then((response) => {
+        // Handle success response
+        console.log(response.data.message);
+        Alert.alert("Login Successful", "You have successfully logged in.!");
+      })
+      .catch((error) => {
+        // Handle error response
+        console.log(error.message);
+        Alert.alert("Login Failed", "An error occurred while logging in.");
+      });
   };
 
   return (
